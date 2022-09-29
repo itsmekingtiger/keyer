@@ -75,8 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    String currentInputs =
-        keyBuf.isEmpty ? "Click me and type" : keyBuf.toString();
+    String currentInputs = keyBuf.isEmpty ? "Click me and type" : keyBuf.toString();
 
     return Scaffold(
       appBar: AppBar(
@@ -185,9 +184,7 @@ class ShortcutComponent extends StatelessWidget {
         Row(
           children: drawWithPlus(keys),
         ),
-        TextButton(
-            onPressed: () => Clipboard.setData(ClipboardData(text: onFormat())),
-            child: const Text("copy"))
+        TextButton(onPressed: () => Clipboard.setData(ClipboardData(text: onFormat())), child: const Text("copy"))
       ],
     );
   }
