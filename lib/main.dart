@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -74,6 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    String currentInputs =
+        keyBuf.isEmpty ? "Click me and type" : keyBuf.toString();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -93,11 +97,11 @@ class _MyHomePageState extends State<MyHomePage> {
             // 입력
             Focus(
               autofocus: true,
-              child: const Text("Click me and type"),
+              child: Text(currentInputs),
               onKeyEvent: (focusNode, event) {
                 if (event is KeyDownEvent) {
-                  print(event);
-                  keyBuf.add(event.logicalKey.keyLabel);
+                  log(event.toString());
+                  setState(() => keyBuf.add(event.logicalKey.keyLabel));
                   timer.cancel();
                   timer = Timer(threshold, flushBuf);
                 }
