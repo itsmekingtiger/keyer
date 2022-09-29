@@ -193,7 +193,20 @@ class KeyComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(keyStr);
+    return Container(
+      decoration: const BoxDecoration(
+        color: Color(0xFFEEEEEE),
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+      ),
+      padding: const EdgeInsets.all(3),
+      child: Text(
+        keyStr,
+        style: const TextStyle(
+          fontFamily: 'NotoSansMono',
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
   }
 }
 
