@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
 void main() {
@@ -32,30 +33,22 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // 티커
-  late final Ticker ticker;
+  late Timer timer;
   late Duration duration = const Duration();
-  static const int threshold = 2000;
+  static const Duration threshold = Duration(milliseconds: 1000);
 
   @override
   void initState() {
     super.initState();
 
-    ticker = Ticker(((elapsed) {
-      if (elapsed.inMilliseconds - duration.inMilliseconds >= threshold) {
-        print("tick");
-        duration = elapsed;
-        flushBuf();
-      }
-    }));
-
-    ticker.start();
+    timer = Timer(threshold, flushBuf);
   }
 
   @override
   void dispose() {
     super.dispose();
 
-    ticker.dispose();
+    timer.cancel();
   }
 
   List<String> keyBuf = [];
@@ -105,6 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (event is KeyDownEvent) {
                   print(event);
                   keyBuf.add(event.logicalKey.keyLabel);
+                  timer.cancel();
+                  timer = Timer(threshold, flushBuf);
                 }
 
                 return KeyEventResult.handled;
