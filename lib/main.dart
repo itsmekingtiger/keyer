@@ -163,7 +163,10 @@ class ShortcutComponent extends StatelessWidget {
     List<Widget> widgets = [KeyComponent(keys[0])];
 
     for (var i = 1; i < keys.length; i++) {
-      widgets.add(const Text("+"));
+      widgets.add(const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        child: Text("+"),
+      ));
       widgets.add(KeyComponent(keys[i]));
     }
 
